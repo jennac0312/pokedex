@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Index = () => {
+const Index = ( { pokemons } ) => {
 
     const myStyle = {
         color: '#ffffff',
@@ -10,6 +10,12 @@ const Index = () => {
   return (
     <div style={myStyle}>
       <h1>See All The Pokemon!'</h1>
+
+      <ul>
+        { pokemons.map((pokemon) => {
+            return <li>{pokemon.name}</li>
+        }) }
+      </ul>
     </div>
   )
 }
