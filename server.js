@@ -35,7 +35,7 @@ app.get('/pokemon/new', (  req, res ) => {
 })
 
 // route matches path from FORM ACTION ATTRIBUTE
-app.post('/pokemon', async ( req, res ) => {
+app.post('/pokemon', ( req, res ) => {
     // const newPokemon = await req.body
 
     // res.send(newPokemon)
