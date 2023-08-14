@@ -3,6 +3,7 @@ const app = express()
 
 const PORT = 3000
 
+const pokemon = require('./models/pokemon')
 // MIDDLEWARE
 
 
@@ -12,7 +13,7 @@ app.get('/', ( req, res ) => {
     res.send(`<h1>Welcome to the Pokemon App!</h1>`)
 })
 app.get('/pokemon', ( req, res ) => {
-
+    res.send(pokemon)
 })
 
 
