@@ -22,6 +22,10 @@ app.get('/pokemon', ( req, res ) => {
     res.render("Index", { pokemons : pokemons }) // dont like the plural but...
 })
 
+app.get('/pokemon/:id', ( req, res ) => {
+    res.send( req.params.id )
+})
+
 
 
 
