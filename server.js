@@ -8,8 +8,11 @@ const PORT = 3000
 
 
 // ROUTES
+app.get('/', ( req, res ) => {
+    res.send(`<h1>Welcome to the Pokemon App!</h1>`)
+})
 app.get('/pokemon', ( req, res ) => {
-    
+
 })
 
 
