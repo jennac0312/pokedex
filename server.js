@@ -3,8 +3,13 @@ const app = express()
 
 const PORT = 3000
 
-const pokemon = require('./models/pokemon')
+const pokemons = require('./models/pokemon')
+
 // MIDDLEWARE
+// view engine
+app.set("view engine", "jsx")
+app.engine("jsx", require("express-react-views").createEngine())
+
 
 
 
@@ -13,7 +18,8 @@ app.get('/', ( req, res ) => {
     res.send(`<h1>Welcome to the Pokemon App!</h1>`)
 })
 app.get('/pokemon', ( req, res ) => {
-    res.send(pokemon)
+    // res.send(pokemons)
+    res.render("Index", { pokemons : pokemons }) // dont like the plural but...
 })
 
 
