@@ -10,6 +10,8 @@ const Index = ( { pokemons } ) => {
   return (
     <div style={myStyle}>
       <h1>See All The Pokemon!'</h1>
+      <a href="/pokemon/new">Create a New Pokemon</a>
+
 
       <ul>
         { pokemons.map((pokemon, index) => {
