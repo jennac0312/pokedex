@@ -37,17 +37,25 @@ app.get('/', ( req, res ) => {
 })
 
 // SEED
-app.get('/pokemon/seed',async(req,res)=>{
+app.get('/pokemon/seed', async(req,res)=>{
+
+    // add .jpg to img
+    let seedPokemon = pokemons.map(( pokemon ) => {
+        pokemon.img + '.jpg'
+        console.log(pokemon.img)
+        return pokemon
+    })
+    console.log(seedPokemon)
+
     //Deleting All Current Data(optional)
     await Pokemon.deleteMany({}) //PokemonSchema
     //create a list of pokemon
-    await Pokemon.create(pokemons) //imported pokemon data array
+    await Pokemon.create( pokemons ) //imported pokemon data array
     res.redirect('/pokemon')
 })
 
 app.get('/pokemon', async ( req, res ) => {
     // res.send(pokemons)
-
     try {
         const allPokemon = await Pokemon.find({})
         res.render("Index", { pokemons : allPokemon }) // dont like the plural but...
@@ -60,26 +68,29 @@ app.get('/pokemon/new', ( req, res ) => {
     res.render("New")
 })
 
-
-
 // route matches path from FORM ACTION ATTRIBUTE
-app.post('/pokemon', ( req, res ) => {
+app.post('/pokemon', async ( req, res ) => {
     // const newPokemon = await req.body
     
     // res.send(newPokemon)
-    console.log( req.body )
-    pokemons.push( req.body )
+    // console.log( req.body )
+    // pokemons.push( req.body )
     // res.send('data received')
+    
+    await Pokemon.create( req.body )
     res.redirect('/pokemon')
+
 })
 
 
 
-app.get('/pokemon/:id', ( req, res ) => {
+app.get('/pokemon/:id', async ( req, res ) => {
     // res.send( req.params.id )
     
     let { id } = req.params
-    res.render("Show", { pokemon : pokemons[id] })
+
+    const pokemon = await Pokemon.findById( id )
+    res.render("Show", { pokemon : pokemon })
 })
 
 

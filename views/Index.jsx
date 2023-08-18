@@ -35,7 +35,7 @@ const Index = ( { pokemons } ) => {
 
 
             return (
-                <a href={`/pokemon/${index}`} key={index} style={ linkStyle }>
+                <a href={`/pokemon/${pokemon._id}`} key={index} style={ linkStyle }>
                     <li>
                         <img src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png" alt="pokeball" style={{ height: '30px', marginRight: "10px" }} />
                         <span>{ pokemon?.name.charAt(0).toUpperCase() + rest }</span>
