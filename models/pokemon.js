@@ -8,6 +8,9 @@ const PokemonSchema = new mongoose.Schema({
     img: {
         type: String,
         required: true
+    },
+    age: {
+        type: Number
     }
 })
 

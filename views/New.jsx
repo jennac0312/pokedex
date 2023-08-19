@@ -8,6 +8,7 @@ const New = () => {
             <form action="/pokemon" method="POST">
                 Name: <input type="text" name="name" /><br/>
                 Image: <input type="text" name="img" /><br/>
+                Age: <input type="text" name="age" /><br/>
                 <input type="submit" name="" value="Create Pokemon"/>
             </form>
     </div>

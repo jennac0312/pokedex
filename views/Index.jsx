@@ -26,7 +26,8 @@ const Index = ( { pokemons } ) => {
 
 
       <ul>
-        { pokemons?.map((pokemon, index) => {
+        { pokemons.length === 0 ? <h2>Sorry no Pokemon to show</h2> : 
+            pokemons?.map((pokemon, index) => {
             // pokemon.name.split('').forEach(( letter, index ) => {
             //     index === 0 && letter.toUpperCase
             // })
@@ -35,13 +36,21 @@ const Index = ( { pokemons } ) => {
 
 
             return (
-                <a href={`/pokemon/${pokemon._id}`} key={index} style={ linkStyle }>
-                    <li>
-                        <img src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png" alt="pokeball" style={{ height: '30px', marginRight: "10px" }} />
-                        <span>{ pokemon?.name.charAt(0).toUpperCase() + rest }</span>
-                        
+                <>
+                    <li style={{ display: "flex", }}>
+                            <img src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png" alt="pokeball" style={{ height: '30px', }} />
+                        <a href={`/pokemon/${pokemon._id}`} key={index} style={ linkStyle }>
+                            <span style={{ margin: "10px" }}>{ pokemon?.name.charAt(0).toUpperCase() + rest }</span>
+                        </a>
                     </li>
-                </a>
+                    <br />
+                    <span>{String(pokemon._id)}</span>
+                    <form action={`/pokemon/${pokemon._id}?_method=DELETE`} method="POST">
+                        {/* shoutout Q */}
+                        <button style={{ backgroundColor: "crimson" }}>DELETE</button>
+                    </form>
+                    <hr />
+                </>
             )
         }) }
       </ul>

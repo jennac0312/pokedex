@@ -9,6 +9,8 @@ const MONGO_URI = process.env.MONGO_URI
 const Pokemon = require('./models/Pokemon') // schema
 const pokemons = require('./utilities/pokemon') // for seed
 
+const methodOveride = require("method-override") // override for delete and update reqs
+
 // MIDDLEWARE
 // view engine
 app.set("view engine", "jsx")
@@ -29,24 +31,19 @@ mongoose.connect( MONGO_URI, {
     useUnifiedTopology: true
 })
 
+app.use(methodOveride("_method"))
 
 
 // ROUTES
 app.get('/', ( req, res ) => {
-    res.send(`<h1>Welcome to the Pokemon App!</h1>`)
+    res.send(`
+        <h1>Welcome to the Pokemon App!</h1>
+        <a href="/pokemon"> View All Pokemon </a>
+    `)
 })
 
 // SEED
 app.get('/pokemon/seed', async(req,res)=>{
-
-    // add .jpg to img
-    let seedPokemon = pokemons.map(( pokemon ) => {
-        pokemon.img + '.jpg'
-        console.log(pokemon.img)
-        return pokemon
-    })
-    console.log(seedPokemon)
-
     //Deleting All Current Data(optional)
     await Pokemon.deleteMany({}) //PokemonSchema
     //create a list of pokemon
@@ -68,6 +65,18 @@ app.get('/pokemon/new', ( req, res ) => {
     res.render("New")
 })
 
+app.delete( '/pokemon/:id', async ( req, res ) => {
+    let { id } = req.params
+    try {
+        // await Pokemon.findOneAndDelete( { _id: id } )
+        await Pokemon.findByIdAndDelete( id )
+        // await Pokemon.findByIdAndRemove( id )
+        res.redirect( '/pokemon' )
+        // res.send( 'pokemon deleted' )
+    } catch (error) {
+        res.status(500).send( "Server error" )
+    }
+})
 // route matches path from FORM ACTION ATTRIBUTE
 app.post('/pokemon', async ( req, res ) => {
     // const newPokemon = await req.body
@@ -83,6 +92,9 @@ app.post('/pokemon', async ( req, res ) => {
 })
 
 
+app.get( 'pokemon/:id/update', ( req, res ) => {
+
+})
 
 app.get('/pokemon/:id', async ( req, res ) => {
     // res.send( req.params.id )
