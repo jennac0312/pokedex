@@ -45,7 +45,11 @@ const Index = ( { pokemons } ) => {
                     </li>
                     <br />
                     <span>{String(pokemon._id)}</span>
+                    <a href={`/pokemon/edit/${pokemon._id}`}>
+                        <button>Edit</button>
+                    </a>
                     <form action={`/pokemon/${pokemon._id}?_method=DELETE`} method="POST">
+                        {/*  */}
                         {/* shoutout Q */}
                         <button style={{ backgroundColor: "crimson" }}>DELETE</button>
                     </form>

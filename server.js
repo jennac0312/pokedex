@@ -65,6 +65,33 @@ app.get('/pokemon/new', ( req, res ) => {
     res.render("New")
 })
 
+app.get( '/pokemon/edit/:id', async ( req, res ) => {
+    let { id } = req.params
+
+    try {
+        let pokemon = await Pokemon.findById( id )
+        res.render( "Edit", { pokemon: pokemon } )
+        
+    } catch (error) {
+        res.status(500).send( error )
+    }
+})
+
+app.put( '/pokemon/edit/:id', async ( req, res ) => {
+
+    let { id } = req.params
+
+    try {
+        await Pokemon.findByIdAndUpdate( id, req.body )
+
+        res.redirect( '/pokemon' )
+        
+    } catch (error) {
+        res.status(500).send( error )
+    }
+
+} )
+
 app.delete( '/pokemon/:id', async ( req, res ) => {
     let { id } = req.params
     try {
@@ -77,6 +104,7 @@ app.delete( '/pokemon/:id', async ( req, res ) => {
         res.status(500).send( "Server error" )
     }
 })
+
 // route matches path from FORM ACTION ATTRIBUTE
 app.post('/pokemon', async ( req, res ) => {
     // const newPokemon = await req.body
